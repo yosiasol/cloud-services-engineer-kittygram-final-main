@@ -9,7 +9,7 @@ services:
 
   backend:
     build: ./backend
-    image: yosiasol/kittygram_backend
+    image: leeevs/kittygram_backend
     container_name: backend
     env_file:
       - .env
@@ -21,7 +21,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: yosiasol/kittygram_frontend
+    image: leeevs/kittygram_frontend
     container_name: frontend
     command: sh -c "cp -r /app/build/. /static/ && http-server -p 8000 /app/build"
     volumes:
@@ -29,7 +29,7 @@ services:
 
   gateway:
     build: ./nginx
-    image: yosiasol/kittygram_gateway
+    image: leeevs/kittygram_gateway
     container_name: gateway
     depends_on:
       - backend
