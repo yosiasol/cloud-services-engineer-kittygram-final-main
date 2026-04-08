@@ -21,7 +21,16 @@ services:
   frontend:
     image: leeevs/kittygram_frontend
     container_name: frontend
-    command: sh -c "cp -r /app/build/. /static/"
+    command: >
+      sh -c "
+        set -e
+        cp /app/build/index.html /static/index.html
+        cp -r /app/build/static/. /static/
+        if [ -f /app/build/asset-manifest.json ]; then cp /app/build/asset-manifest.json /static/; fi
+        if [ -f /app/build/favicon.ico ]; then cp /app/build/favicon.ico /static/; fi
+        if [ -f /app/build/manifest.json ]; then cp /app/build/manifest.json /static/; fi
+        if [ -f /app/build/robots.txt ]; then cp /app/build/robots.txt /static/; fi
+      "
     volumes:
       - static:/static
 
